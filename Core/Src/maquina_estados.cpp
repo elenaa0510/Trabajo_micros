@@ -15,13 +15,13 @@ volatile uint8_t flag_boton_onoff = 0;
 
 
 void HAL_GPIO_EXTI_Callback(uint16_t GPIO_Pin) {
-    if (GPIO_Pin == BTN_VALIDAR_Pin) {
+    if (GPIO_Pin == BTN_VALIDAR) {
         flag_boton_validar = true;
     }
-    else if (GPIO_Pin == BTN_START_Pin) {
+    else if (GPIO_Pin == BTN_START) {
         flag_boton_start = true;
     }
-    else if (GPIO_Pin == BTN_ONOFF_Pin) {
+    else if (GPIO_Pin == BTN_ONOFF) {
             flag_boton_onoff = true;
         }
 }
@@ -49,64 +49,65 @@ void actualizar_estados(void) {
     	{
     	    flag_boton_onoff = false;
 
-    	    if (estado_actual == ESTADO_APAGADO)
-    	    {
-    	        estado_actual = ESTADO_ENCENDIDO;
-    	    }
+    	    if (estado_actual ==ESTADO_APAGADO)
+    	        estado_actual=ESTADO_ENCENDIDO;
     	    else
-    	    {
-    	        estado_actual = ESTADO_APAGADO;
-    	    }
+    	        estado_actual= ESTADO_APAGADO;
 
     	    return;
     	}
 
     case ESTADO_ESPERA:
         if (flag_boton_start) {
-            flag_boton_start = false;
-            estado_actual = ESTADO_INICIALIZAR;
+           estado_actual=ESTADO_INICIALIZAR;
+           flag_boton_start=false;
         }
         break;
 
      case ESTADO_INICIALIZAR:
          generar_clave();
          iniciar_temporizador_partida(); //SIN HACER
-         estado_actual = ESTADO_JUGANDO;
+         estado_actual=ESTADO_JUGANDO;
          break;
 
       case ESTADO_JUGANDO:
           if (flag_boton_validar) {
-             flag_boton_validar = false;
-             estado_actual = ESTADO_VALIDAR;
+             estado_actual=ESTADO_VALIDAR;
+             flag_boton_validar=false;
           }
 
           if (temporizador_fin()) { //SIN HACER
-             estado_actual = ESTADO_DERROTA;
+             estado_actual=ESTADO_DERROTA;
+             flag_boton_validar=false;
           }
           break;
 
       case ESTADO_VALIDAR:
-          if (validar_clave(lectura_potenciometro())) {  //SIN HACER
-              estado_actual = ESTADO_VICTORIA;
-          } else {
+          if (validar_clave(lectura_potenciometro()))  //SIN HACER
+              estado_actual=ESTADO_VICTORIA;
+          else
               //SI FALLA SE SIGUE JUGANDO
-              estado_actual = ESTADO_JUGANDO;
-          }
-          break;
+              estado_actual=ESTADO_JUGANDO;
+           break;
 
       case ESTADO_VICTORIA:
        //ESCRIBIR MENSAJE PANTALLA Y GUARDAR EN RANKING
        if (flag_boton_start) {
-    	   estado_actual = ESTADO_INICIALIZAR;
-        	flag_boton_start = false;
+    	   estado_actual=ESTADO_INICIALIZAR;
+    	   flag_boton_start=false;
        }
        break;
+
+      case ESTADO_RANKING:
+    	  escribir_ranking();
+    	  estado_actual=ESTADO_ESPERA;
+    	  break;
 
       case ESTADO_DERROTA:
        //ESCRIBIR MENSAJE PANTALLA Y ESPERAR A START DE NUEVO
         if (flag_boton_start) {
-          estado_actual = ESTADO_INICIALIZAR;
-          flag_boton_start = false;
+          estado_actual=ESTADO_INICIALIZAR;
+          flag_boton_start=false;
          }
         break;
     }
