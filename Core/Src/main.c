@@ -21,6 +21,8 @@
 
 /* Private includes ----------------------------------------------------------*/
 /* USER CODE BEGIN Includes */
+#include <stdio.h>
+#include "potenciometros.h"
 
 /* USER CODE END Includes */
 
@@ -45,7 +47,8 @@ ADC_HandleTypeDef hadc1;
 UART_HandleTypeDef huart2;
 
 /* USER CODE BEGIN PV */
-
+	#define NUM_POT 2
+	int valores_actuales[NUM_POT];
 /* USER CODE END PV */
 
 /* Private function prototypes -----------------------------------------------*/
@@ -99,11 +102,25 @@ int main(void)
 
   /* Infinite loop */
   /* USER CODE BEGIN WHILE */
+  uint32_t ultimo_tiempo = 0;
+  int valores_anteriores[2] = {-1, -1};
   while (1)
   {
+	  if (HAL_GetTick()-ultimo_tiempo>=50){
+		  ultimo_tiempo=HAL_GetTick();
+		  //Prueba de mapeo de los potenciometros
+		  	POT_ObtenerValores(&hadc1, valores_actuales,NUM_POT);
+		  	if (valores_actuales[0] != valores_anteriores[0] || valores_actuales[1] != valores_anteriores[1])
+		  	    {
+		  	        //printf("Pot 1 (PC0): %d | Pot 2 (PC1): %d\r\n", valores_actuales[0], valores_actuales[1]);
+		  	        valores_anteriores[0] = valores_actuales[0];
+		  	        valores_anteriores[1] = valores_actuales[1];
+		  	    }
+	  }
     /* USER CODE END WHILE */
 
     /* USER CODE BEGIN 3 */
+
   }
   /* USER CODE END 3 */
 }
