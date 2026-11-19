@@ -23,6 +23,7 @@
 /* USER CODE BEGIN Includes */
 #include <stdio.h>
 #include "potenciometros.h"
+#include "maquina_estados.h"
 
 /* USER CODE END Includes */
 
@@ -106,6 +107,8 @@ int main(void)
   int valores_anteriores[2] = {-1, -1};
   while (1)
   {
+	  actualizar_estados();
+
 	  if (HAL_GetTick()-ultimo_tiempo>=50){
 		  ultimo_tiempo=HAL_GetTick();
 		  //Prueba de mapeo de los potenciometros

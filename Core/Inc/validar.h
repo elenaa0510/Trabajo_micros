@@ -8,6 +8,8 @@
 #ifndef INC_VALIDAR_H_
 #define INC_VALIDAR_H_
 
+#include "clave.h"
+
 uint8_t validar_clave(uint8_t clave_correcta[4],uint8_t usuario[4]);
 
 #endif /* INC_VALIDAR_H_ */

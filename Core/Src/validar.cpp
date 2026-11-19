@@ -7,5 +7,8 @@
 
 
 #include "validar.h"
-#include "clave.h"
+
+uint8_t validar_clave(uint8_t clave_correcta[4],uint8_t usuario[4]){
+
+}
 

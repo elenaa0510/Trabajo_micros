@@ -7,6 +7,8 @@
 
 
 #include "maquina_estados.h"
+#include "validar.h" //INCLUYE EL CALVE.H
+#include <stdbool.h>
 
 //DE MOMENTO SOLO CON INTERRUPCIONES LOS BOTONES
 volatile uint8_t flag_boton_validar = 0;
@@ -51,7 +53,11 @@ void actualizar_estados(void) {
 	    	    if (estado_actual ==ESTADO_APAGADO)
 	    	        estado_actual=ESTADO_ESPERA;
 	    	    else
-	    	        estado_actual= ESTADO_APAGADO;
+	    	    {
+	    	    	estado_actual= ESTADO_APAGADO;
+	    	    	flag_boton_validar = false;
+	    	    	flag_boton_start = false;
+	    	    }
 
 	    	    return;
 	    	}
@@ -70,8 +76,9 @@ void actualizar_estados(void) {
         break;
 
      case ESTADO_INICIALIZAR:
-         generar_clave();
-         iniciar_temporizador_partida(); //SIN HACER
+         generar_clave(clave);
+         reiniciar_temporizador(); //SIN HACER
+         reiniciar_puntuacion(); //SIN HACER
          estado_actual=ESTADO_JUGANDO;
          break;
 
