@@ -94,7 +94,7 @@ void actualizar_estados(void) {
           break;
 
       case ESTADO_VALIDAR:
-          if (validar_clave(lectura_potenciometro()))  //SIN HACER
+          if (validar_clave(clave,lectura_pot()))
               estado_actual=ESTADO_RANKING;
           else
               //SI FALLA SE SIGUE JUGANDO
