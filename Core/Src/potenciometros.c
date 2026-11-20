@@ -28,11 +28,10 @@ void POT_ObtenerValores(ADC_HandleTypeDef *hadc, int *array_destino, int cantida
     for (int i = 0; i < cantidad; i++) {
         sConfig.Channel = canales_adc[i];
         sConfig.Rank = 1;
-        sConfig.SamplingTime = ADC_SAMPLETIME_15CYCLES; // Un poco más de tiempo de muestreo para mayor estabilidad
+        sConfig.SamplingTime = ADC_SAMPLETIME_15CYCLES;
 
         HAL_ADC_ConfigChannel(hadc, &sConfig);
 
-        // Iniciamos, leemos y paramos de forma directa y limpia
         HAL_ADC_Start(hadc);
 
         // Si tarda más de 2 milisegundos, salimos sin bloquear la placa
@@ -40,7 +39,7 @@ void POT_ObtenerValores(ADC_HandleTypeDef *hadc, int *array_destino, int cantida
             uint32_t valor_bruto = HAL_ADC_GetValue(hadc);
             array_destino[i] = POT_MapearValor(valor_bruto);
         } else {
-            array_destino[i] = 0; // Si falla la lectura puntualmente, ponemos 0 en vez de crashear
+            array_destino[i] = 0;
         }
 
         HAL_ADC_Stop(hadc);

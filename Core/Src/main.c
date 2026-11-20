@@ -24,6 +24,7 @@
 #include <stdio.h>
 #include "potenciometros.h"
 #include "maquina_estados.h"
+#include "display_pot.h"
 
 /* USER CODE END Includes */
 
@@ -48,8 +49,9 @@ ADC_HandleTypeDef hadc1;
 UART_HandleTypeDef huart2;
 
 /* USER CODE BEGIN PV */
-	#define NUM_POT 2
+	#define NUM_POT 4
 	int valores_actuales[NUM_POT];
+	uint8_t digitos_display[4]={0,0,0,0};
 /* USER CODE END PV */
 
 /* Private function prototypes -----------------------------------------------*/
@@ -98,27 +100,27 @@ int main(void)
   MX_ADC1_Init();
   MX_USART2_UART_Init();
   /* USER CODE BEGIN 2 */
-
+  TM1637_Init(5);//enciende el display con intensidad 5
   /* USER CODE END 2 */
 
   /* Infinite loop */
   /* USER CODE BEGIN WHILE */
   uint32_t ultimo_tiempo = 0;
-  int valores_anteriores[2] = {-1, -1};
   while (1)
   {
 	  actualizar_estados();
 
 	  if (HAL_GetTick()-ultimo_tiempo>=50){
 		  ultimo_tiempo=HAL_GetTick();
-		  //Prueba de mapeo de los potenciometros
+		  //Lee los 4 potenciometros
 		  	POT_ObtenerValores(&hadc1, valores_actuales,NUM_POT);
-		  	if (valores_actuales[0] != valores_anteriores[0] || valores_actuales[1] != valores_anteriores[1])
-		  	    {
-		  	        //printf("Pot 1 (PC0): %d | Pot 2 (PC1): %d\r\n", valores_actuales[0], valores_actuales[1]);
-		  	        valores_anteriores[0] = valores_actuales[0];
-		  	        valores_anteriores[1] = valores_actuales[1];
-		  	    }
+		  	for(int i =0; i < NUM_POT; i++){
+		  		if (valores_actuales[i] < 0) valores_actuales[i] = 0;
+				if (valores_actuales[i] > 9) valores_actuales[i] = 9;
+				digitos_display[i] = (uint8_t)valores_actuales[i];
+		  	}
+		  	TM1637_MostrarDigitos(digitos_display);
+
 	  }
     /* USER CODE END WHILE */
 
