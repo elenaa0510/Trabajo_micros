@@ -108,7 +108,7 @@ int main(void)
   uint32_t ultimo_tiempo = 0;
   while (1)
   {
-	  actualizar_estados();
+	 // actualizar_estados();
 
 	  if (HAL_GetTick()-ultimo_tiempo>=50){
 		  ultimo_tiempo=HAL_GetTick();
