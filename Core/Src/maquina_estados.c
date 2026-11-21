@@ -17,13 +17,13 @@ volatile uint8_t flag_boton_start = 0;
 volatile uint8_t flag_boton_onoff = 0;
 
 void HAL_GPIO_EXTI_Callback(uint16_t GPIO_Pin) {
-    if (GPIO_Pin == BTN_VALIDAR) {
+    if (GPIO_Pin == BTN_VALIDAR_Pin) {
         flag_boton_validar = true;
     }
-    else if (GPIO_Pin == BTN_START) {
+    else if (GPIO_Pin == BTN_START_Pin) {
         flag_boton_start = true;
     }
-    else if (GPIO_Pin == BTN_ONOFF) {
+    else if (GPIO_Pin == BTN_ONOFF_Pin) {
             flag_boton_onoff = true;
         }
 }

@@ -57,6 +57,16 @@ void Error_Handler(void);
 /* USER CODE END EFP */
 
 /* Private defines -----------------------------------------------------------*/
+#define LED1_VERDE_Pin GPIO_PIN_2
+#define LED1_VERDE_GPIO_Port GPIOE
+#define LED1_AZUL_Pin GPIO_PIN_3
+#define LED1_AZUL_GPIO_Port GPIOE
+#define LED2_ROJO_Pin GPIO_PIN_4
+#define LED2_ROJO_GPIO_Port GPIOE
+#define LED2_VERDE_Pin GPIO_PIN_5
+#define LED2_VERDE_GPIO_Port GPIOE
+#define LED2_AZUL_Pin GPIO_PIN_6
+#define LED2_AZUL_GPIO_Port GPIOE
 #define POT_1_Pin GPIO_PIN_0
 #define POT_1_GPIO_Port GPIOC
 #define POT_2_Pin GPIO_PIN_1
@@ -65,18 +75,32 @@ void Error_Handler(void);
 #define POT_3_GPIO_Port GPIOC
 #define POT_4_Pin GPIO_PIN_3
 #define POT_4_GPIO_Port GPIOC
-#define BTN_ONOFF GPIO_PIN_4
-#define BTN_ONOFF_GPIO_Port GPIOC
-#define BTN_START GPIO_PIN_5
+#define ZUMBADOR_PASIVO_Pin GPIO_PIN_6
+#define ZUMBADOR_PASIVO_GPIO_Port GPIOA
+#define BTN_VALIDAR_Pin GPIO_PIN_4
+#define BTN_VALIDAR_GPIO_Port GPIOC
+#define BTN_START_Pin GPIO_PIN_5
 #define BTN_START_GPIO_Port GPIOC
-#define BTN_VALIDAR GPIO_PIN_0
-#define BTN_VALIDAR_GPIO_Port GPIOB
-#define BUZZER_Pin GPIO_PIN_1
-#define BUZZER_GPIO_Port GPIOB
+#define BTN_ONOFF_Pin GPIO_PIN_0
+#define BTN_ONOFF_GPIO_Port GPIOB
+#define LED3_ROJO_Pin GPIO_PIN_7
+#define LED3_ROJO_GPIO_Port GPIOE
+#define LED3_VERDE_Pin GPIO_PIN_8
+#define LED3_VERDE_GPIO_Port GPIOE
+#define LED3_AZUL_Pin GPIO_PIN_9
+#define LED3_AZUL_GPIO_Port GPIOE
+#define LED4_ROJO_Pin GPIO_PIN_10
+#define LED4_ROJO_GPIO_Port GPIOE
+#define LED4_VERDE_Pin GPIO_PIN_11
+#define LED4_VERDE_GPIO_Port GPIOE
+#define LED4_AZUL_Pin GPIO_PIN_12
+#define LED4_AZUL_GPIO_Port GPIOE
 #define TM_DIO_Pin GPIO_PIN_6
 #define TM_DIO_GPIO_Port GPIOB
 #define TM_CLK_Pin GPIO_PIN_7
 #define TM_CLK_GPIO_Port GPIOB
+#define LED1_ROJO_Pin GPIO_PIN_1
+#define LED1_ROJO_GPIO_Port GPIOE
 
 /* USER CODE BEGIN Private defines */
 
