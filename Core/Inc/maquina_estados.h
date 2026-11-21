@@ -8,11 +8,22 @@
 #ifndef INC_MAQUINA_ESTADOS_H_
 #define INC_MAQUINA_ESTADOS_H_
 
+#include <stdint.h>
+#include "validar.h"
+#include "tiempo.h"
 
+//VARIABLES GLOBAL -> FLAGS
 extern volatile uint8_t flag_boton_validar;
 extern volatile uint8_t flag_boton_start;
 extern volatile uint8_t flag_boton_onoff;
 
+//MAQUINA ESTADOS, RESPONSABLE DE LA CORDINACION DEL JUEGO
 void actualizar_estados(void);
+
+void iniciar_partida(void);
+void finalizar_partida(void);
+
+void sumar_intento(void);
+uint32_t obtener_intentos(void);
 
 #endif /* INC_MAQUINA_ESTADOS_H_ */

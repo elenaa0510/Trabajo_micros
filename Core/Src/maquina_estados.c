@@ -7,7 +7,6 @@
 
 
 #include "maquina_estados.h"
-#include "validar.h" //INCLUYE EL CALVE.H
 #include <stdbool.h>
 
 //DE MOMENTO SOLO CON INTERRUPCIONES LOS BOTONES
@@ -76,26 +75,27 @@ void actualizar_estados(void) {
         break;
 
      case ESTADO_INICIALIZAR:
-         generar_clave(clave);
-         reiniciar_temporizador(); //SIN HACER
-         reiniciar_puntuacion(); //SIN HACER
+         iniciar_partida();
          estado_actual=ESTADO_JUGANDO;
          break;
 
       case ESTADO_JUGANDO:
-          if (temporizador_fin()) { //SIN HACER
+          if (tiempo_agotado()) {
              estado_actual=ESTADO_DERROTA;
              flag_boton_validar=false;
           }
           else if (flag_boton_validar) {
+        	  	  	  sumar_intento();
                        estado_actual=ESTADO_VALIDAR;
                        flag_boton_validar=false;
                     }
           break;
 
       case ESTADO_VALIDAR:
-          if (validar_clave(clave,lectura_pot()))
+          if (validar_clave(clave,lectura_pot())){
+        	  finalizar_partida();
               estado_actual=ESTADO_RANKING;
+          }
           else
               //SI FALLA SE SIGUE JUGANDO
               estado_actual=ESTADO_JUGANDO;

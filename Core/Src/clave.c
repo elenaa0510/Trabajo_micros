@@ -12,4 +12,6 @@ void generar_clave(uint8_t clave[4]) {
     for(int i = 0; i < 4; i++) {
         clave[i] = rand() % 10; //EMPLEEAR NUMEROS DEL 0 A 9
     }
+
+    printf("Clave: %d %d %d %d\r\n",clave[0], clave[1], clave[2], clave[3]);
 }
