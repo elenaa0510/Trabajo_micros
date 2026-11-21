@@ -11,6 +11,7 @@
 #include <stdint.h>
 
 extern uint8_t clave[4];
+extern uint8_t usuario[4];
 
 void generar_clave(uint8_t clave[4]);
 

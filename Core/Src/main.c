@@ -285,17 +285,23 @@ static void MX_GPIO_Init(void)
   /*Configure GPIO pin Output Level */
   HAL_GPIO_WritePin(GPIOD, GPIO_PIN_12|GPIO_PIN_13|GPIO_PIN_14|GPIO_PIN_15, GPIO_PIN_RESET);
 
-  /*Configure GPIO pins : BOTON_ON_Pin BOTON_OFF_Pin */
-  GPIO_InitStruct.Pin = BOTON_ON_Pin|BOTON_OFF_Pin;
+  /*Configure GPIO pins : BTN_ONOFF */
+  GPIO_InitStruct.Pin = BTN_ONOFF;
   GPIO_InitStruct.Mode = GPIO_MODE_INPUT;
   GPIO_InitStruct.Pull = GPIO_NOPULL;
   HAL_GPIO_Init(GPIOC, &GPIO_InitStruct);
 
-  /*Configure GPIO pin : BOTON_RESET_Pin */
-  GPIO_InitStruct.Pin = BOTON_RESET_Pin;
+  /*Configure GPIO pins : BTN_START */
+  GPIO_InitStruct.Pin = BTN_START;
   GPIO_InitStruct.Mode = GPIO_MODE_INPUT;
   GPIO_InitStruct.Pull = GPIO_NOPULL;
-  HAL_GPIO_Init(BOTON_RESET_GPIO_Port, &GPIO_InitStruct);
+  HAL_GPIO_Init(GPIOC, &GPIO_InitStruct);
+
+  /*Configure GPIO pin : BTN_VALIDAR */
+  GPIO_InitStruct.Pin = BTN_VALIDAR;
+  GPIO_InitStruct.Mode = GPIO_MODE_INPUT;
+  GPIO_InitStruct.Pull = GPIO_NOPULL;
+  HAL_GPIO_Init(BTN_VALIDAR_GPIO_Port, &GPIO_InitStruct);
 
   /*Configure GPIO pins : BUZZER_Pin TM_DIO_Pin TM_CLK_Pin */
   GPIO_InitStruct.Pin = BUZZER_Pin|TM_DIO_Pin|TM_CLK_Pin;

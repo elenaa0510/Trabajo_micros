@@ -6,6 +6,7 @@
  */
 
 #include <stdlib.h>
+#include <stdio.h>
 #include "clave.h"
 
 void generar_clave(uint8_t clave[4]) {

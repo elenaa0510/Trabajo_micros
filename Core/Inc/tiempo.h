@@ -12,10 +12,10 @@
 
 #define TIEMPO_MAX 120000 //2min en ms
 
-void iniciar_contador(void);
-uint32_t obtener_tiempo_empleado(void);
+void iniciar_tiempo(void);
+uint32_t tiempo_empleado(void);
 uint8_t tiempo_agotado(void);
-uint32_t obtener_tiempo_final(void);
+uint32_t tiempo_final(void);
 
 
 #endif /* INC_TIEMPO_H_ */

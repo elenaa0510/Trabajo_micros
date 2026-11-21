@@ -13,4 +13,7 @@
 int POT_MapearValor(uint32_t valor_adc);
 void POT_ObtenerValores(ADC_HandleTypeDef *hadc, int *array_destino, int cantidad);
 
+//ELENA LO QUE DEVULEVE EL POT GUARDALO EN LA VARIABLE USUARIO ES UN ARRAY DECLARADO EN CLAVE.H
+//QUE ME DABA MUCHO ERROR DEJAR
+
 #endif /* INC_POTENCIOMETROS_H_ */
