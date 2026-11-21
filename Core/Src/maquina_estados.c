@@ -5,15 +5,16 @@
  *      Author: silvi
  */
 
-
-#include "maquina_estados.h"
 #include <stdbool.h>
+#include "maquina_estados.h"
+#include "main.h"
+#include "validar.h"
+#include "tiempo.h"
 
 //DE MOMENTO SOLO CON INTERRUPCIONES LOS BOTONES
 volatile uint8_t flag_boton_validar = 0;
 volatile uint8_t flag_boton_start = 0;
 volatile uint8_t flag_boton_onoff = 0;
-
 
 void HAL_GPIO_EXTI_Callback(uint16_t GPIO_Pin) {
     if (GPIO_Pin == BTN_VALIDAR) {
@@ -28,7 +29,7 @@ void HAL_GPIO_EXTI_Callback(uint16_t GPIO_Pin) {
 }
 
 
-
+//ESTADOS
 typedef enum {
     ESTADO_APAGADO, //INICIO Y EN CUALQUIER ESTADO SE PULSA OFF
 	ESTADO_ESPERA, //ESPERAR A PULSAR START
@@ -40,7 +41,30 @@ typedef enum {
 } EstadoJuego;
 
 
-EstadoJuego estado_actual = ESTADO_APAGADO;
+static EstadoJuego estado_actual = ESTADO_APAGADO;
+static uint32_t n_intentos = 0;
+
+
+//FUNCIONES DE CORDINACION
+void iniciar_partida(void){
+	n_intentos=0;
+	iniciar_tiempo();
+	generar_clave(clave);
+}
+
+void sumar_intento(void){
+	n_intentos++;
+}
+
+void finalizar_partida(void){
+	tiempo_final();
+}
+
+void escribir_ranking(void){ //SIN HACER
+
+}
+
+
 
 void actualizar_estados(void) {
 
@@ -57,7 +81,6 @@ void actualizar_estados(void) {
 	    	    	flag_boton_validar = false;
 	    	    	flag_boton_start = false;
 	    	    }
-
 	    	    return;
 	    	}
 
@@ -92,7 +115,8 @@ void actualizar_estados(void) {
           break;
 
       case ESTADO_VALIDAR:
-          if (validar_clave(clave,lectura_pot())){
+    	  //jugador leido por los pot
+          if (validar_clave(clave,jugador)){
         	  finalizar_partida();
               estado_actual=ESTADO_RANKING;
           }
@@ -102,18 +126,12 @@ void actualizar_estados(void) {
            break;
 
       case ESTADO_RANKING:
-    	  //METER ESTO DENTRO DE LA FUNCION ESCRIBIR_RANKING
-    	  //if (flag_boton_start) {
-    	      	 //  estado_actual=ESTADO_INICIALIZAR;
-    	      	 //  flag_boton_start=false;
-    	        // }
-
-    	  escribir_ranking();
+       	  escribir_ranking();
     	  estado_actual=ESTADO_ESPERA;
     	  break;
 
       case ESTADO_DERROTA:
-       //ESCRIBIR MENSAJE PANTALLA Y ESPERAR A START DE NUEVO
+       //ESCRIBIR MENSAJE PANTALLA
         if (flag_boton_start) {
           estado_actual=ESTADO_INICIALIZAR;
           flag_boton_start=false;

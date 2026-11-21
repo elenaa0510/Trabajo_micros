@@ -9,8 +9,6 @@
 #define INC_MAQUINA_ESTADOS_H_
 
 #include <stdint.h>
-#include "validar.h"
-#include "tiempo.h"
 
 //VARIABLES GLOBAL -> FLAGS
 extern volatile uint8_t flag_boton_validar;
@@ -24,6 +22,7 @@ void iniciar_partida(void);
 void finalizar_partida(void);
 
 void sumar_intento(void);
-uint32_t obtener_intentos(void);
+
+void escribir_ranking(void);
 
 #endif /* INC_MAQUINA_ESTADOS_H_ */
