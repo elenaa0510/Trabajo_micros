@@ -10,6 +10,7 @@
 #include "main.h"
 #include "validar.h"
 #include "tiempo.h"
+#include "ledRGB.h"
 
 //DE MOMENTO SOLO CON INTERRUPCIONES LOS BOTONES
 volatile uint8_t flag_boton_validar = 0;
@@ -47,6 +48,7 @@ static uint32_t n_intentos = 0;
 
 //FUNCIONES DE CORDINACION
 void iniciar_partida(void){
+	apagar_leds();//apaga leds al iniciar una partida por si se quedaron encendidos
 	n_intentos=0;
 	iniciar_tiempo();
 	generar_clave(clave);
@@ -58,6 +60,7 @@ void sumar_intento(void){
 
 void finalizar_partida(void){
 	tiempo_final();
+	apagar_leds();//apaga los leds rgb cuando finaliza una partida
 }
 
 void escribir_ranking(void){ //SIN HACER
